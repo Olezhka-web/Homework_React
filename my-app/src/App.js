@@ -1,6 +1,6 @@
 import './App.css';
 import {useEffect, useState} from "react";
-import {getUser, getUsers} from "./services/API";
+import {getUser, getUsers} from "./services/ServiceAPI";
 import Posts from "./components/posts/Posts";
 import PostDetails from "./components/post-details/PostDetails";
 
