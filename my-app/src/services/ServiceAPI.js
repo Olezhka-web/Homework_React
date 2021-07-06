@@ -15,4 +15,7 @@ const axiosInstanceComments = axios.create({
 const getUsers = () => axiosInstanceUsers.get();
 const getPosts = () => axiosInstancePosts.get();
 const getComments = () => axiosInstanceComments.get();
-export {getUsers, getPosts, getComments};
+const getUser = (id) => axiosInstanceUsers.get('/' + id);
+const getPost = (id) => axiosInstancePosts.get('/' + id);
+const getComment = (id) => axiosInstanceComments.get('/' + id);
+export {getUsers, getPosts, getComments, getUser, getPost, getComment};
