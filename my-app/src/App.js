@@ -5,7 +5,7 @@ import {
     deleteTodos,
     pushTodo,
     setLoadingFalse,
-    setLoadingTrue,
+    setLoadingTrue, updateTodos,
     updateTodosStatus
 } from "./redux/actionCreators";
 import CreateTodoForm from "./components/createTodoForm/CreateTodoForm";
@@ -70,10 +70,36 @@ function App() {
         dispatch(updateTodosStatus(data));
     }
 
+    const onTodoUpdate = async (title, description, completed, todo) =>{
+        if(!title){
+            title = todo.title;
+        }
+        if(!description){
+            description = todo.description;
+        }
+        if(!completed || (completed !== 'true' && completed !== 'false')){
+            completed = todo.completed.toString();
+        }
+        const resp = await fetch(`http://localhost:8888/update-todo/${todo.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(
+                {
+                    title,
+                    description,
+                    completed: (completed === 'true')
+                }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await resp.json();
+        dispatch(updateTodos(data));
+    }
+
     return (
         <div>
             <CreateTodoForm onSubmit={onTodoCreate} />
-            <Todos todos={todos} isLoading={todosLoading} clickDelete={onTodoDelete} clickComplete={onTodoUpdateStatus}/>
+            <Todos todos={todos} isLoading={todosLoading} clickDelete={onTodoDelete} clickComplete={onTodoUpdateStatus} onSubmit={onTodoUpdate}/>
         </div>
   );
 }

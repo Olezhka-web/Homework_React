@@ -1,4 +1,12 @@
-import {ADD_TODOS, DELETE_TODOS, LOADING_FALSE, LOADING_TRUE, PUSH_TODO, UPDATE_TODOS_STATUS} from "../actionTypes";
+import {
+    ADD_TODOS,
+    DELETE_TODOS,
+    LOADING_FALSE,
+    LOADING_TRUE,
+    PUSH_TODO,
+    UPDATE_TODOS,
+    UPDATE_TODOS_STATUS
+} from "../actionTypes";
 
 const initialState = {
     todos: [],
@@ -23,6 +31,9 @@ export const todosReducer = (state = initialState, action) =>{
             return {...state, todos: state.todos.filter(el => el.id !== action.payload.id)};
         }
         case UPDATE_TODOS_STATUS: {
+            return {...state, todos: [...state.todos.filter(el => el.id !== action.payload.id), action.payload]};
+        }
+        case UPDATE_TODOS: {
             return {...state, todos: [...state.todos.filter(el => el.id !== action.payload.id), action.payload]};
         }
         default:{
